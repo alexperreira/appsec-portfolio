@@ -5,7 +5,6 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { MDXContent } from '../components/MDXContent';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 

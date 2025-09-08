@@ -1,0 +1,38 @@
+---
+title: 'Authix: From vuln → exploit → fix'
+summary: 'Added CSP, fixed auth/session bug, wired Semgrep + ZAP CI; reduced baseline alerts from 3 → 0.'
+date: '2025-09-01'
+tags: ['appsec', 'nextjs', 'supabase', 'semgrep', 'zap']
+---
+
+> **Summary**: Practical case study showing how I found, exploited, and fixed a vuln in my Authix app, then prevented regressions with CI.
+
+## Context & Threat Model
+
+- Stack: Next.js, TypeScript, Prisma, Supabase
+- Risk focus: session handling, CORS/CSRF, content injection
+
+## Exploit (PoC)
+
+Describe the minimal steps to reproduce. Include a short GIF or screenshots in `/public/case-studies/authix/`.
+
+## Fix (Diff)
+
+Explain the patch (why it works, tests added). Link to `vuln` vs `secure` branches.
+
+## Prevention
+
+- **CSP** hardened
+- **Semgrep** rules enabled in CI
+- **ZAP Baseline** on PRs
+
+## Evidence
+
+- CI badge (failing → passing)
+- ZAP report excerpt
+
+## Takeaways
+
+- Root cause, defense-in-depth, and dev education notes.
+
+---

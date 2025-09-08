@@ -1,7 +1,7 @@
 import { getAllCaseStudies, getAllPosts } from '@/lib/content';
 
 export default async function sitemap() {
-	const base = 'https://alexhacks.io';
+	const base = 'https://alexhacks.net';
 	const routes = [
 		'',
 		'/about',

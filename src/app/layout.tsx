@@ -7,16 +7,16 @@ import Footer from '../components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	metadataBase: new URL('https://alexhacks.io'),
+	metadataBase: new URL('https://alexhacks.net'),
 	title: {
-		default: 'Alex Perreira - I build and secure web apps.',
+		default: 'Alex Perreira - Cybersecurity | Web apps',
 		template: '%s - Alex Perreira',
 	},
 	description: 'AppSec + SWE portfolio: case studies, write-ups, and contact.',
 	openGraph: {
 		title: 'Alex Perreira - I build and secure web apps',
 		description: 'AppSec + SWE portfolio: case studies, write-ups, contact.',
-		url: 'https://alexhacks.io',
+		url: 'https://alexhacks.net',
 		siteName: 'Alex Perreira',
 		locale: 'en_US',
 		type: 'website',

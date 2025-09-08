@@ -5,8 +5,26 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { resolve } from 'node:path';
 
-const CONTENT_DIR = path.join(process.cwd(), 'content');
+async function resolveContentRoot(): Promise<string> {
+	const roots = [
+		path.join(process.cwd(), 'content'),
+		path.join(process.cwd(), 'src', 'content'),
+		path.join(process.cwd(), 'source', 'content'),
+		path.join(process.cwd(), 'app', 'content'),
+		path.join(process.cwd(), 'src', 'app', 'content'),
+	];
+	for (const p of roots) {
+		try {
+			const stat = await fs.stat(p);
+			if (stat.isDirectory()) return p;
+		} catch {}
+	}
+	return path.join(process.cwd(), 'content');
+}
+
+const ROOT = await resolveContentRoot();
 
 export type Frontmatter = {
 	title: string;
@@ -45,7 +63,7 @@ async function listDir(dir: string) {
 }
 
 export async function getAllCaseStudies(): Promise<Meta[]> {
-	const dir = path.join(CONTENT_DIR, 'case-studies');
+	const dir = path.join(ROOT, 'case-studies');
 	const files = await listDir(dir);
 	const items = await Promise.all(
 		files.map(async (file) => {
@@ -68,7 +86,7 @@ export async function getAllCaseStudies(): Promise<Meta[]> {
 export async function getAllPosts({ tag }: { tag?: string } = {}): Promise<
 	Meta[]
 > {
-	const dir = path.join(CONTENT_DIR, 'posts');
+	const dir = path.join(ROOT, 'posts');
 	const files = await listDir(dir);
 	const items = await Promise.all(
 		files.map(async (file) => {
@@ -90,7 +108,7 @@ export async function getAllPosts({ tag }: { tag?: string } = {}): Promise<
 }
 
 export async function getCaseStudyBySlug(slug: string) {
-	const filePath = path.join(CONTENT_DIR, 'case-studies', `${slug}.mdx`);
+	const filePath = path.join(ROOT, 'case-studies', `${slug}.mdx`);
 	const raw = await fs.readFile(filePath, 'utf8');
 	const { content, data } = matter(raw);
 	const { content: mdxContent } = await compileMDX<{
@@ -116,7 +134,7 @@ export async function getCaseStudyBySlug(slug: string) {
 	};
 }
 export async function getPostBySlug(slug: string) {
-	const filePath = path.join(CONTENT_DIR, 'posts', `${slug}.mdx`);
+	const filePath = path.join(ROOT, 'posts', `${slug}.mdx`);
 	const raw = await fs.readFile(filePath, 'utf8');
 	const { content, data } = matter(raw);
 	const { content: mdxContent } = await compileMDX<{
